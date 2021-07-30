@@ -1,0 +1,90 @@
+Mounted at /content/drive
+/content/drive/My Drive/database/yolov4
+ CUDA-version: 10010 (10010), cuDNN: 7.6.5, GPU count: 1  
+ OpenCV version: 3.2.0
+ 0 : compute_capability = 750, cudnn_half = 0, GPU: Tesla T4 
+   layer   filters  size/strd(dil)      input                output
+   0 conv     16       3 x 3/ 1    416 x 416 x   3 ->  416 x 416 x  16 0.150 BF
+   1 max                2x 2/ 2    416 x 416 x  16 ->  208 x 208 x  16 0.003 BF
+   2 conv     32       3 x 3/ 1    208 x 208 x  16 ->  208 x 208 x  32 0.399 BF
+   3 max                2x 2/ 2    208 x 208 x  32 ->  104 x 104 x  32 0.001 BF
+   4 conv     64       3 x 3/ 1    104 x 104 x  32 ->  104 x 104 x  64 0.399 BF
+   5 max                2x 2/ 2    104 x 104 x  64 ->   52 x  52 x  64 0.001 BF
+   6 conv    128       3 x 3/ 1     52 x  52 x  64 ->   52 x  52 x 128 0.399 BF
+   7 max                2x 2/ 2     52 x  52 x 128 ->   26 x  26 x 128 0.000 BF
+   8 conv    256       3 x 3/ 1     26 x  26 x 128 ->   26 x  26 x 256 0.399 BF
+   9 max                2x 2/ 2     26 x  26 x 256 ->   13 x  13 x 256 0.000 BF
+  10 conv     64       1 x 1/ 1     13 x  13 x 256 ->   13 x  13 x  64 0.006 BF
+  11 conv    256       1 x 1/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.006 BF
+  12 route  10 		                           ->   13 x  13 x  64 
+  13 conv    256       3 x 3/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.050 BF
+  14 route  13 11 	                           ->   13 x  13 x 512 
+  15 route  14 9 	                           ->   13 x  13 x 768 
+  16 conv     64       1 x 1/ 1     13 x  13 x 768 ->   13 x  13 x  64 0.017 BF
+  17 conv    256       1 x 1/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.006 BF
+  18 route  16 		                           ->   13 x  13 x  64 
+  19 conv    256       3 x 3/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.050 BF
+  20 route  19 17 	                           ->   13 x  13 x 512 
+  21 route  20 15 	                           ->   13 x  13 x1280 
+  22 conv     64       1 x 1/ 1     13 x  13 x1280 ->   13 x  13 x  64 0.028 BF
+  23 conv    256       1 x 1/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.006 BF
+  24 route  22 		                           ->   13 x  13 x  64 
+  25 conv    256       3 x 3/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.050 BF
+  26 route  25 23 	                           ->   13 x  13 x 512 
+  27 route  26 21 	                           ->   13 x  13 x1792 
+  28 conv     64       1 x 1/ 1     13 x  13 x1792 ->   13 x  13 x  64 0.039 BF
+  29 conv    256       1 x 1/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.006 BF
+  30 route  28 		                           ->   13 x  13 x  64 
+  31 conv    256       3 x 3/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.050 BF
+  32 route  31 29 	                           ->   13 x  13 x 512 
+  33 route  32 27 	                           ->   13 x  13 x2304 
+  34 conv     64       1 x 1/ 1     13 x  13 x2304 ->   13 x  13 x  64 0.050 BF
+  35 conv    256       1 x 1/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.006 BF
+  36 route  34 		                           ->   13 x  13 x  64 
+  37 conv    256       3 x 3/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.050 BF
+  38 route  37 35 	                           ->   13 x  13 x 512 
+  39 route  8 		                           ->   26 x  26 x 256 
+  40 conv     64       1 x 1/ 1     26 x  26 x 256 ->   26 x  26 x  64 0.022 BF
+  41 reorg_old              / 2    26 x  26 x  64   ->    13 x  13 x 256
+  42 route  41 38 	                           ->   13 x  13 x 768 
+  43 conv     64       1 x 1/ 1     13 x  13 x 768 ->   13 x  13 x  64 0.017 BF
+  44 conv    256       1 x 1/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.006 BF
+  45 route  43 		                           ->   13 x  13 x  64 
+  46 conv    256       3 x 3/ 1     13 x  13 x  64 ->   13 x  13 x 256 0.050 BF
+  47 route  46 44 	                           ->   13 x  13 x 512 
+  48 route  47 42 	                           ->   13 x  13 x1280 
+  49 conv    144       1 x 1/ 1     13 x  13 x1280 ->   13 x  13 x 144 0.062 BF
+  50 yolo
+[yolo] params: iou loss: mse (2), iou_norm: 0.75, cls_norm: 1.00, scale_x_y: 1.00
+  51 route  47 		                           ->   13 x  13 x 512 
+  52 conv    128       1 x 1/ 1     13 x  13 x 512 ->   13 x  13 x 128 0.022 BF
+  53 upsample                 2x    13 x  13 x 128 ->   26 x  26 x 128
+  54 route  53 8 	                           ->   26 x  26 x 384 
+  55 conv     32       1 x 1/ 1     26 x  26 x 384 ->   26 x  26 x  32 0.017 BF
+  56 conv    128       1 x 1/ 1     26 x  26 x  32 ->   26 x  26 x 128 0.006 BF
+  57 route  55 		                           ->   26 x  26 x  32 
+  58 conv    128       3 x 3/ 1     26 x  26 x  32 ->   26 x  26 x 128 0.050 BF
+  59 route  58 56 	                           ->   26 x  26 x 256 
+  60 route  59 54 	                           ->   26 x  26 x 640 
+  61 conv     32       1 x 1/ 1     26 x  26 x 640 ->   26 x  26 x  32 0.028 BF
+  62 conv    128       1 x 1/ 1     26 x  26 x  32 ->   26 x  26 x 128 0.006 BF
+  63 route  61 		                           ->   26 x  26 x  32 
+  64 conv    128       3 x 3/ 1     26 x  26 x  32 ->   26 x  26 x 128 0.050 BF
+  65 route  64 62 	                           ->   26 x  26 x 256 
+  66 route  65 60 	                           ->   26 x  26 x 896 
+  67 conv    144       1 x 1/ 1     26 x  26 x 896 ->   26 x  26 x 144 0.174 BF
+  68 yolo
+[yolo] params: iou loss: mse (2), iou_norm: 0.75, cls_norm: 1.00, scale_x_y: 1.00
+Total BFLOPS 2.673 
+avg_outputs = 174388 
+ Allocate additional workspace_size = 3.28 MB 
+Loading weights from /content/drive/My Drive/database/yolov4/Save/tinier_best.weights...Done! Loaded 69 layers from weights-file 
+4Cannot load image /content/drive/My Drive/database/obj/00000.jpg
+Cannot load image /content/drive/My Drive/database/obj/00001.jpg
+Cannot load image /content/drive/My Drive/database/obj/00002.jpg
+Cannot load image /content/drive/My Drive/database/obj/00003.jpg
+Cannot load image /content/drive/My Drive/database/obj/00007.jpg
+Cannot load image /content/drive/My Drive/database/obj/00005.jpg
+Cannot load image /content/drive/My Drive/database/obj/00004.jpg
+Cannot load image /content/drive/My Drive/database/obj/00006.jpg
+12632Total Detection Time: 5586 Seconds
